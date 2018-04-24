@@ -22,5 +22,22 @@ public class Main {
         arbolin.inOrden(arbolin.raiz);
 
 
+        ArbolBinario arbolin2 = new ArbolBinario();
+        arbolin2.insertar(5);
+        arbolin2.insertar(100);
+        arbolin2.insertar(9);
+        arbolin2.insertar(20);
+
+        arbolin= arbolin.unirArboles(arbolin, arbolin2);
+        System.out.println("ORDEN FINAL");
+        arbolin.inOrden(arbolin.raiz);
+        arbolin.eliminar(1);
+
+        arbolin.eliminar(7);
+        arbolin.inOrden(arbolin.raiz);
+
+        //System.out.println(arbolin.obtenerRaiz());
+
+
     }
 }

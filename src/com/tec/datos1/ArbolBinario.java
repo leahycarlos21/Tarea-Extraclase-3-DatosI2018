@@ -100,16 +100,15 @@ public class ArbolBinario {
                 padre.hijoIzquierda = auxNodo.hijoDerecha;
             else
                 padre.hijoDerecha = auxNodo.hijoIzquierda;
-        }
-        else{
+        } else {
             NodoArbol reemplazo = obtenerNodoReemplazo(auxNodo);
-            if (auxNodo==raiz)
-                raiz=reemplazo;
-            else if(esHijoIzq)
-                padre.hijoIzquierda=reemplazo;
+            if (auxNodo == raiz)
+                raiz = reemplazo;
+            else if (esHijoIzq)
+                padre.hijoIzquierda = reemplazo;
             else
-                padre.hijoDerecha=reemplazo;
-            reemplazo.hijoIzquierda=auxNodo.hijoIzquierda;
+                padre.hijoDerecha = reemplazo;
+            reemplazo.hijoIzquierda = auxNodo.hijoIzquierda;
         }
         return true;//;sí encontró el dato
     }
@@ -117,31 +116,62 @@ public class ArbolBinario {
     /**
      * Método de devolver el nodo reemplazo
      */
-    public NodoArbol obtenerNodoReemplazo(NodoArbol nodoReemp){
+    public NodoArbol obtenerNodoReemplazo(NodoArbol nodoReemp) {
         NodoArbol reempPadre = nodoReemp;
-        NodoArbol reemplazo =nodoReemp;
+        NodoArbol reemplazo = nodoReemp;
         NodoArbol auxNodo = nodoReemp.hijoDerecha;
-        while (auxNodo!=null){
-            reempPadre=reemplazo;
-            reemplazo=auxNodo;
-            auxNodo=auxNodo.hijoIzquierda;
+        while (auxNodo != null) {
+            reempPadre = reemplazo;
+            reemplazo = auxNodo;
+            auxNodo = auxNodo.hijoIzquierda;
         }
-        if (reemplazo!= nodoReemp.hijoDerecha){
-            reempPadre.hijoIzquierda=reemplazo.hijoDerecha;
+        if (reemplazo != nodoReemp.hijoDerecha) {
+            reempPadre.hijoIzquierda = reemplazo.hijoDerecha;
             reemplazo.hijoDerecha = nodoReemp.hijoDerecha;
         }
-        System.out.println("El nodo a reemplazo es "+reemplazo.dato);
+        System.out.println("El nodo a reemplazo es " + reemplazo.dato);
         return reemplazo;
     }
 
     /**
      * metodo para recorrer el arbol InOrden
      */
-    public void inOrden(NodoArbol arbol){
-        if(arbol!=null){
+    public void inOrden(NodoArbol arbol) {
+        if (arbol != null) {
             inOrden(arbol.hijoIzquierda);
-            System.out.print(arbol.dato+"- ");
+            System.out.print(arbol.dato + "- ");
             inOrden(arbol.hijoDerecha);
         }
     }
+
+    /**
+     *Obtiene el dato raiz del arbol
+     * @return
+     */
+    private int  obtenerRaiz(){
+        return raiz.dato;
+
+    }
+
+    /**
+     *Descompone los arboles y los va insertando en el nuevo arbol
+     * @param arbol1
+     * @param arbol2
+     * @return
+     */
+    public ArbolBinario unirArboles(ArbolBinario arbol1, ArbolBinario arbol2){
+        ArbolBinario nuevoArbol = new ArbolBinario();
+        while (arbol1.raiz!=null){
+            int dato = arbol1.obtenerRaiz();
+            nuevoArbol.insertar(dato);
+            arbol1.eliminar(dato);
+        }
+        while(arbol2.raiz!=null){
+            nuevoArbol.insertar(arbol2.obtenerRaiz());
+            arbol2.eliminar(arbol2.obtenerRaiz());
+        }
+        return nuevoArbol;
+
+    }
+
 }
